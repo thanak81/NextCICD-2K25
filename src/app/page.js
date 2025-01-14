@@ -21,7 +21,7 @@ export default function Home() {
             .
           </li>
           <li>This is next 2025 hahaha</li>
-          <li>Bonjour je suis Thanak Mech suuuuuuuuiiiiii</li>
+          <li>This is the version latest</li>
         </ol>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
