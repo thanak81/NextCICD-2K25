@@ -33,10 +33,10 @@ pipeline {
             steps {
                 script {
                 def containerStatus = sh(script: "docker ps | grep -q nextcicd", returnStatus: true)
-                if (containerStatus == 0) then 
+                if (containerStatus == 0) {
                     sh "docker stop nextcicd"
                     sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
-                fi 
+                }
                 else if (containerStatus != 0){
                     sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
                 }
