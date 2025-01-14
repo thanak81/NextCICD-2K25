@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage ("Git Clone") {
             steps{ 
-                git branch: "main", url: "https://github.com/thanak81/NextCICD-Homework.git" 
+                git branch: "main", url: "https://github.com/thanak81/NextCICD-2K25.git" 
             }
         }
         stage ("Build DockerFilee"){
