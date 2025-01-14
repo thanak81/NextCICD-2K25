@@ -7,7 +7,7 @@ pipeline {
                 git branch: "main", url: "https://github.com/thanak81/NextCICD-Homework.git" 
             }
         }
-        stage ("Build DockerFile"){
+        stage ("Build DockerFilee"){
             steps{
                 sh "docker build -t thanak81/nextcicd-homework-2k25 ."
             }
