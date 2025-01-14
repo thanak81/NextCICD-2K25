@@ -38,7 +38,7 @@ pipeline {
                     sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
                 }
                 else if (containerStatus != 0){
-                    sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
+                    sh "docker run --rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
                 }
                 }
                 // sh "docker ps | grep nextcicd && docker stop nextcicd"
