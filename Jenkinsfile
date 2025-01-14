@@ -31,8 +31,17 @@ pipeline {
         }
         stage ("Start a contaner"){
             steps {
-                sh "docker ps | grep nextcicd && docker stop nextcicd"
-                sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
+                script {
+                def containerStatus = sh(script: "docker ps | grep -q nextcicd", returnStatus: true)
+                if (containerStatus == 0) then 
+                    sh "docker stop nextcicd"
+                    sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
+                fi 
+                else {
+                    sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
+                }
+                }
+                // sh "docker ps | grep nextcicd && docker stop nextcicd"
             }
         }
     }
