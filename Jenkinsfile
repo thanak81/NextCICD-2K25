@@ -15,7 +15,7 @@ pipeline {
         stage ("Login to DockerHub"){
             steps{
                 script {
-                        withCredentials([usernamePassword(credentialsId: "dockerhub-credentials",
+                        withCredentials([usernamePassword(credentialsId: "dockerhub_cred",
                         usernameVariable: "USERNAME", passwordVariable: "PASSWORD"
                 )]){
                     sh "docker login --username $username --password $password"
@@ -27,6 +27,12 @@ pipeline {
         stage ("Push to DockerHub"){
             steps{
                 sh "docker push thanak81/nextcicd-homework-2k25"
+            }
+        }
+        stage ("Start a contaner"){
+            steps {
+                sh "docker stop "
+                sh "docker run -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
             }
         }
     }
