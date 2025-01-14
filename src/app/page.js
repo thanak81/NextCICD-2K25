@@ -20,7 +20,7 @@ export default function Home() {
             </code>
             .
           </li>
-          <li>Save and see your changes instantly.</li>
+          <li>This is next 2025 hahaha</li>
           <li>Bonjour je suis Thanak Mech suuuuuuuuiiiiii</li>
         </ol>
 
