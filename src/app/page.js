@@ -20,6 +20,7 @@ export default function Home() {
             </code>
             .
           </li>
+          <li>Last test. Im tired 🫡</li>
           <li>This is next 2025 hahaha</li>
           <li>This is the version latest</li>
           <li>Listen, I will grind so hard that i cant stop myself 😉</li>

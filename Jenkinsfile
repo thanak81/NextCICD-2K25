@@ -31,12 +31,6 @@ pipeline {
             }
         }
 
-        stage ("Remove all dangling image"){
-            steps {
-                sh "docker image prune -f"
-            }
-        }
-
         stage ("Start a contaner"){
             steps {
                 script {
@@ -51,6 +45,11 @@ pipeline {
                 }
                 }
                 // sh "docker ps | grep nextcicd && docker stop nextcicd"
+            }
+        }
+        stage ("Remove all dangling image"){
+            steps {
+                sh "docker image prune -f"
             }
         }
     }
