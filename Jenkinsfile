@@ -9,7 +9,7 @@ pipeline {
         }
         stage ("Build DockerFilee"){
             steps{
-                sh "docker build -t thanak81/nextcicd-homework-2k25 ."
+                sh "docker build -t thanak81/nextcicd-homework-2k25:latest ."
             }
         }
         stage ("Login to DockerHub"){
@@ -26,7 +26,7 @@ pipeline {
         }
         stage ("Push to DockerHub"){
             steps{
-                sh "docker push thanak81/nextcicd-homework-2k25"
+                sh "docker push thanak81/nextcicd-homework-2k25:latest"
             }
         }
         stage ("Start a contaner"){
@@ -35,10 +35,10 @@ pipeline {
                 def containerStatus = sh(script: "docker ps | grep -q nextcicd", returnStatus: true)
                 if (containerStatus == 0) {
                     sh "docker stop nextcicd"
-                    sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
+                    sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework:latest" 
                 }
                 else if (containerStatus != 0){
-                    sh "docker run --rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
+                    sh "docker run --rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework:latest" 
                 }
                 }
                 // sh "docker ps | grep nextcicd && docker stop nextcicd"
