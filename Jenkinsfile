@@ -31,6 +31,11 @@ pipeline {
             }
         }
 
+        stage ("Remove all dangling image"){
+            steps {
+                sh "docker image prune -f"
+            }
+        }
 
         stage ("Start a contaner"){
             steps {
