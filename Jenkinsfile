@@ -31,8 +31,8 @@ pipeline {
         }
         stage ("Start a contaner"){
             steps {
-                sh "docker stop "
-                sh "docker run -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
+                sh "docker ps | grep nextcicd && docker stop nextcicd"
+                sh "docker run -rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework" 
             }
         }
     }
