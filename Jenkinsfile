@@ -63,14 +63,13 @@ pipeline {
         //         sh "docker image prune -f"
         //     }
         // }
-
-        post {
-            success {
-                echo "Pipeline completed Successfully and Cool"
-            }
-            failure {
+    }
+    post {
+        success {
+            echo "Pipeline completed Successfully and Cool"
+        }
+        failure {
                 echo "Pipeline failed"
-            }
         }
     }
 
