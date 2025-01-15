@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment{
+        DOCKER_IMAGE = 'thanak81/nextcicd-homework-2k25'
+        DOCKER_TAG = "latest"
+        DOCKER_RUN_CMD = "docker run --rm -d -p 4000:3000 --name nextcicd ${DOCKER_IMAGE}:${DOCKER_TAG}"
+    }
     
     stages {
         stage ("Git Clone") {
@@ -10,24 +15,30 @@ pipeline {
         }
         stage ("Build DockerFilee"){
             steps{
-                sh "docker build -t thanak81/nextcicd-homework-2k25:latest ."
+                sh "docker build -t ${DOCKER_IMAGE}:${DOCKER_TAG} ."
             }
         }
-        stage ("Login to DockerHub"){
-            steps{
-                script {
-                        withCredentials([usernamePassword(credentialsId: "dockerhub_cred",
-                        usernameVariable: "USERNAME", passwordVariable: "PASSWORD"
-                )]){
-                    sh "docker login --username $username --password $password"
-                }
-                }
+  
+        stage ("Docker Tasks"){
+            parallel {
+                stage ("Login and Push to DockerHub"){
+                    steps{
+                        script {
+                            withCredentials([usernamePassword(credentialsId: "dockerhub_cred",
+                            usernameVariable: "USERNAME", passwordVariable: "PASSWORD"
+                            )]){
+                                sh "docker login --username $username --password $password"
+                                sh "docker push ${DOCKER_IMAGE}:${DOCKER_TAG}"
+                            }
+                         }
            
-            }
-        }
-        stage ("Push to DockerHub"){
-            steps{
-                sh "docker push thanak81/nextcicd-homework-2k25:latest"
+                    }
+                }
+                stage ("Clean Old Images"){
+                    steps {
+                        sh "docker image prune -f"
+                    }
+                }
             }
         }
 
@@ -38,18 +49,27 @@ pipeline {
                 // def buildTag = (env.BUILD_ID.toInteger() - 1).toString()
                 if (containerStatus == 0) {
                     sh "docker stop nextcicd"
-                    sh "docker run --rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework-2k25:latest" 
+                    sh ${DOCKER_RUN_CMD} 
                 }
                 else if (containerStatus != 0){
-                    sh "docker run --rm -d -p 4000:3000 --name nextcicd thanak81/nextcicd-homework-2k25:latest" 
+                    sh "${DOCKER_RUN_CMD}"
                 }
                 }
                 // sh "docker ps | grep nextcicd && docker stop nextcicd"
             }
         }
-        stage ("Remove all dangling image"){
-            steps {
-                sh "docker image prune -f"
+        // stage ("Remove all dangling image"){
+        //     steps {
+        //         sh "docker image prune -f"
+        //     }
+        // }
+
+        post {
+            success {
+                echo "Pipeline completed Successfully"
+            }
+            failure {
+                echo "Pipeline failed"
             }
         }
     }
