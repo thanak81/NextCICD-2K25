@@ -26,6 +26,10 @@ export default function Home() {
           <li>Listen, I will grind so hard that i cant stop myself 😉</li>
           <li>Belive in urself 😉</li>
         </ol>
+        <ul>
+          <li>New DAY 1/15/25 😄</li>
+          <li>Keep going , nak</li>
+        </ul>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
