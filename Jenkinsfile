@@ -49,7 +49,7 @@ pipeline {
                 // def buildTag = (env.BUILD_ID.toInteger() - 1).toString()
                 if (containerStatus == 0) {
                     sh "docker stop nextcicd"
-                    sh ${DOCKER_RUN_CMD} 
+                    sh "${DOCKER_RUN_CMD}"
                 }
                 else if (containerStatus != 0){
                     sh "${DOCKER_RUN_CMD}"
